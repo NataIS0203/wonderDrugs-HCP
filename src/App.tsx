@@ -1,4 +1,4 @@
-import { useState, type SetStateAction } from 'react'
+import { useState, type SetStateAction } from 'react';
 import reactLogo from './assets/WDHCP.jpg'
 import './App.css'
 
@@ -25,7 +25,7 @@ function App() {
           onChange={handleNameChange}
         />
       <p>Hello, {name}!</p>
-      </div>
+       </div>
       <p className="read-the-docs">
         Click on the Vite and React logos to learn more
       </p>
