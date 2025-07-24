@@ -1,4 +1,3 @@
-import type { Handler } from 'aws-lambda';
 import type { Schema } from "../data/resource"
 
 export const handler: Schema["hcpRequest"]["functionHandler"] = async (event) => {
