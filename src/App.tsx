@@ -1,7 +1,7 @@
 import { useState, type SetStateAction } from 'react';
 import reactLogo from './assets/WDHCP.jpg'
 import './App.css'
-import type { MSLResponceTS } from '../amplify/functions/MSLResponceTS'
+import type { MSLResponce } from '../amplify/functions/MSLResponce'
 import { fetchGetData } from '../amplify/data/getPost.js'
 
 function App() {
@@ -36,7 +36,7 @@ function App() {
     setSpecialty(event.target.value);
   };
 
-  const [responseData, setResponseData] = useState<MSLResponceTS | null>(null);
+  const [responseData, setResponseData] = useState<MSLResponce | null>(null);
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {

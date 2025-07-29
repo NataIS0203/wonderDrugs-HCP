@@ -1,4 +1,4 @@
-export interface  MSLResponceTS {
+export interface  MSLResponce {
   id :string;
   name :string;
   title :string;
