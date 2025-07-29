@@ -46,10 +46,7 @@ function App() {
 
     try {
       const response = await fetchGetData( zip, specialty)
-      .then(response => 
-        {
-          setResponseData(response);
-        })
+      setResponseData(response);
        // Adjust based on actual response structure
     } catch (error) {
       console.error('Error sending data:', error);
