@@ -1,4 +1,4 @@
-class MSLResponce {
+export class MSLResponceTS {
   id!: string;
   name!: string;
   title!: string;
