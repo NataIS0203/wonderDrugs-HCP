@@ -3,7 +3,6 @@ import reactLogo from './assets/WDHCP.jpg'
 import './App.css'
 import type { MSLResponceTS } from '../amplify/functions/MSLResponceTS'
 import { fetchGetData } from '../amplify/data/getPost.js'
-import { MSLResponce } from '../amplify/functions/MSLResponce.js';
 
 function App() {
   const [name, setName] = useState('');
