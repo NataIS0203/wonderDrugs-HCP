@@ -1,8 +1,8 @@
 import { useState, type SetStateAction } from 'react';
 import reactLogo from './assets/WDHCP.jpg'
 import './App.css'
-import { MSLResponceTS } from '../amplify/functions/MSLResponceTS'
-import { fetchGetData } from '../amplify/data/getPost'
+import type { MSLResponceTS } from '../amplify/functions/MSLResponceTS'
+import { fetchGetData } from '../amplify/data/getPost.js'
 
 function App() {
   const [name, setName] = useState('');

@@ -7,6 +7,9 @@
     "module": "ESNext",
     "skipLibCheck": true,
     "allowJs": true,
+    "checkJs": false,
+    "esModuleInterop": true,
+
 
     /* Bundler mode */
     "moduleResolution": "bundler",
@@ -24,5 +27,5 @@
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true
   },
-  "include": ["src", "amplify/functions/resource.ts", "amplify/functions/handler.ts", "amplify/functions/MSLResponceTS.ts"]
+  "include": ["src","./**/*.ts", "./**/*.js", "amplify/functions/resource.ts", "amplify/functions/handler.ts", "amplify/functions/MSLResponceTS.ts"]
 }
