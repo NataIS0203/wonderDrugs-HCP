@@ -1,5 +1,3 @@
-import { MSLResponce } from '../amplify/functions/MSLResponce.js'
-
 const { SSMClient, GetParametersCommand } = require("@aws-sdk/client-ssm");
 
 import axios from 'axios'; 
@@ -73,18 +71,18 @@ export const fetchGetData  = async (zip, groupSpecialty) => {
     })
     .then(response => {
         // Handle success
-        return new MSLResponce(
-          response.data.Id,
-          response.data.name,
-          response.data.title,
-          response.data.email,
-          response.data.phone,
-          response.data.firstName,
-          response.data.lastName,
-          response.data.company,
-          response.data.accountId,
-        )
-    })
+        return (
+         id = response.data.Id,
+         name = response.data.name,
+         title = response.data.title,
+         email = response.data.email,
+         phone = response.data.phone,
+         firstName = response.data.firstName,
+         lastName = response.data.lastName,
+         company = response.data.company,
+         accountId = response.data.accountId
+        );
+      })
   } catch (error) {
     console.error('Error fetching data:', error);
   }
