@@ -1,7 +1,7 @@
 import { useState, type SetStateAction } from 'react';
 import reactLogo from './assets/WDHCP.jpg'
 import './App.css'
-import { MSLResponce } from '../amplify/functions/MSLResponce'
+import { MSLResponce } from '../amplify/functions/MSLResponceTS.js'
 import { fetchGetData } from '../amplify/data/getPost'
 
 function App() {
