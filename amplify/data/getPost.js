@@ -1,5 +1,4 @@
 import { MSLResponce } from '../amplify/functions/MSLResponce'
-import qs from 'qs';
 
 const { SSMClient, GetParametersCommand } = require("@aws-sdk/client-ssm");
 
@@ -35,8 +34,13 @@ export const fetchGetData  = async (zip, groupSpecialty) => {
     const data = {
         username: secretName('userName'),
         password: secretName('password')
-    };
-    const response = instance.post('/auth',  qs.stringify(data), {
+    };   
+
+  const formBody = Object.entries(data)
+    .map(([key, value]) => `${encodeURIComponent(key)}=${encodeURIComponent(value)}`)
+    .join('&');
+
+    const response = instance.post('/auth',  formBody, {
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -61,7 +65,7 @@ export const fetchGetData  = async (zip, groupSpecialty) => {
         zip: zip,
         groupSpecialty: groupSpecialty
     };
-   const response = await instance.post('/custom/hcp_request',  qs.stringify(data), {
+   const response = await instance.post('/custom/hcp_request',  JSON.stringify(data), {
         headers: {
             'Content-Type': 'application/json',
             'Authorization': sessionId,
