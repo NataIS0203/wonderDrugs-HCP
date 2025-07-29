@@ -1,5 +1,8 @@
-import { SSMClient, GetParametersCommand, Parameter } from "@aws-sdk/client-ssm";
-import axios, { AxiosInstance } from "axios";
+import { SSMClient, GetParametersCommand } from "@aws-sdk/client-ssm";
+import type { Parameter } from "@aws-sdk/client-ssm";
+import axios from "axios";
+import type { AxiosInstance } from "axios";
+
 
 // Initialize SSM client
 const client = new SSMClient({});
