@@ -1,6 +1,8 @@
 import { useState, type SetStateAction } from 'react';
 import reactLogo from './assets/WDHCP.jpg'
 import './App.css'
+import { MSLResponce } from '../amplify/functions/MSLResponce'
+import { fetchGetData } from '../amplify/data/getPost'
 
 function App() {
   const [name, setName] = useState('');
@@ -9,7 +11,7 @@ function App() {
   const [NPINumber, setNPINumber] = useState('');
   const [zip, setZip] = useState('');
   const [specialty, setSpecialty] = useState('');
-
+  
   const handleNameChange = (event: { target: { value: SetStateAction<string>; }; }) => {
     setName(event.target.value);
   };
@@ -33,6 +35,29 @@ function App() {
   const handleSpecialtyChange = (event: { target: { value: SetStateAction<string>; }; }) => {
     setSpecialty(event.target.value);
   };
+
+  const [responseData, setResponseData] = useState<MSLResponce | null>(null);
+  const [loading, setLoading] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+    setResponseData(null);
+
+    try {
+      const response = await fetchGetData( zip, specialty)
+      .then(response => 
+        {
+          setResponseData(response);
+        })
+       // Adjust based on actual response structure
+    } catch (error) {
+      console.error('Error sending data:', error);
+      setResponseData(null);
+    } finally {
+      setLoading(false);
+    }
+  }
 
   return (
     <>
@@ -97,11 +122,26 @@ function App() {
           />
         </p>
         </div>
-        <p>Hello, {name}!</p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+        <div>
+      <h2>Send Input to API</h2>
+      <form onSubmit={handleSubmit}>
+        <button type="submit" disabled={loading}>
+          {loading ? 'Sending...' : 'Send'}
+        </button>
+      </form>
+      {responseData && (
+        <div>
+          <h3>Response:</h3>
+          <ul><li key={responseData.id}>{responseData.id}</li>
+            <li key={responseData.id}>{responseData.name}</li>
+            <li key={responseData.title}>{responseData.title}</li>
+            <li key={responseData.email}>{responseData.email}</li>
+            <li key={responseData.phone}>{responseData.phone}</li>
+            <li key={responseData.company}>{responseData.company}</li></ul>
+        </div>
+      )}
+    </div>
+      </div>     
     </>
   )
 }
