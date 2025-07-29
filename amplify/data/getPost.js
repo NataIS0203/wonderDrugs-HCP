@@ -1,4 +1,4 @@
-import { MSLResponce } from '../amplify/functions/MSLResponce'
+import { MSLResponce } from '../amplify/functions/MSLResponce.js'
 
 const { SSMClient, GetParametersCommand } = require("@aws-sdk/client-ssm");
 
