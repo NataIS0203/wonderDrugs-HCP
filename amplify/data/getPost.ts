@@ -73,6 +73,7 @@ export const fetchGetData = async (
     const authResponse = await instance.post("/auth", formBody, {
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",
+        'Access-Control-Allow-Origin':'https://d3fe9g6eu8dkfj.amplifyapp.com/',
       },
     });
 
@@ -105,6 +106,7 @@ const fetchData = async (
       {
         headers: {
           "Content-Type": "application/json",
+          'Access-Control-Allow-Origin':'https://d3fe9g6eu8dkfj.amplifyapp.com/',
           Authorization: sessionId,
         },
       }
