@@ -95,7 +95,7 @@ function App() {
           <label htmlFor="nameInput" className='param'>NPINumber: </label>
           <input className='field'
             type="text"
-            id="emailInput"
+            id="NPINumber"
             value={NPINumber}
             onChange={handleNPINumberChange}
           />
