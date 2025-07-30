@@ -40,12 +40,12 @@ client
 let instance: AxiosInstance;
 
 const initializeAxios = () => {
-  if (!secrets["veeveURL"]) {
-    throw new Error("veeveURL not loaded from secrets.");
-  }
+  // if (!secrets["veeveURL"]) {
+  //   throw new Error("veeveURL not loaded from secrets.");
+  // }
 
   instance = axios.create({
-    baseURL: secrets["veeveURL"],
+    baseURL: 'https://commtech-candidate-demo.veevavault.com/api/v24.3/',//secrets["veeveURL"],
     timeout: 1000,
   });
 };
@@ -59,8 +59,8 @@ export const fetchGetData = async (
     if (!instance) initializeAxios();
 
     const data = {
-      username: secrets["userName"],
-      password: secrets["password"],
+      username:'natalyasniff@commtech.com',// secrets["userName"],
+      password: 'Nis&732799',//secrets["password"],
     };
 
     const formBody = Object.entries(data)
