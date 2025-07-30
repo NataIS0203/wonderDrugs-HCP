@@ -9,7 +9,7 @@ const client = new SSMClient({});
 
 // Helper function to get secret values from environment
 const getSecretNames = (): string[] => {
-  return ["password", "userName", "veeveHTML"]
+  return ["password", "userName", "veeveURL"]
     .map((key) => process.env[key])
     .filter((val): val is string => typeof val === "string");
 };
