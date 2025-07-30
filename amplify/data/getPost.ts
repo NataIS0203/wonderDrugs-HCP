@@ -45,7 +45,7 @@ const initializeAxios = () => {
   // }
 
   instance = axios.create({
-    baseURL: 'https://commtech-candidate-demo.veevavault.com/api/v24.3/',//secrets["veeveURL"],
+    baseURL: 'https://commtech-candidate-demo.veevavault.com/api/v24.3',//secrets["veeveURL"],
     timeout: 1000,
   });
 };
