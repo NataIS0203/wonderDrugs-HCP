@@ -74,6 +74,7 @@ export const fetchGetData = async (
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",
         "Access-Control-Allow-Origin": "*",
+          "Access-Control-Allow-Credentials":true,
       },
     });
 
@@ -107,6 +108,7 @@ const fetchData = async (
         headers: {
           "Content-Type": "application/json",
           "Access-Control-Allow-Origin":"*",
+          "Access-Control-Allow-Credentials":true,
           "Authorization": sessionId,
         },
       }
