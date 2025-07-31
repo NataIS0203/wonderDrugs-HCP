@@ -1,5 +1,5 @@
 // fetchHCPData.ts
-import { get } from '@aws-amplify/api';
+import { post } from '@aws-amplify/api';
 
 interface HCPResponse {
   id: string;
@@ -18,7 +18,7 @@ export const fetchHCPData = async (
   groupSpecialty: string
 ): Promise<HCPResponse> => {
   try {
-    const restOperation = get({
+    const restOperation = post({
       apiName: 'api71abe4d1', // must match the name of your REST API in Amplify
       path: '/hcp',
       options: {
