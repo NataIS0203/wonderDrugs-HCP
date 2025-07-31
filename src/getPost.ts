@@ -1,6 +1,6 @@
 // fetchHCPData.ts
 import { post } from '@aws-amplify/api';
-import awsconfig from './aws-exports.js';
+import awsconfig from './amplifyconfiguration.json';
 import { Amplify } from 'aws-amplify';
 
 Amplify.configure(awsconfig);
