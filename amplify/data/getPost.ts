@@ -1,144 +1,40 @@
-import { SSMClient, GetParametersCommand } from "@aws-sdk/client-ssm";
-import type { Parameter } from "@aws-sdk/client-ssm";
-import axios from "axios";
-import type { AxiosInstance } from "axios";
+// fetchHCPData.ts
+import { get } from '@aws-amplify/api';
 
+interface HCPResponse {
+  id: string;
+  name: string;
+  title: string;
+  email: string;
+  phone: string;
+  firstName: string;
+  lastName: string;
+  company: string;
+  accountId: string;
+}
 
-// Initialize SSM client
-const client = new SSMClient({});
-
-// Helper function to get secret values from environment
-const getSecretNames = (): string[] => {
-  return ["password", "userName", "veeveURL"]
-    .map((key) => process.env[key])
-    .filter((val): val is string => typeof val === "string");
-};
-
-// Fetch secrets from AWS SSM
-const command = new GetParametersCommand({
-  Names: getSecretNames(),
-  WithDecryption: true,
-});
-
-let secrets: Record<string, string> = {};
-
-client
-  .send(command)
-  .then((response) => {
-    response.Parameters?.forEach((param: Parameter) => {
-      if (param.Name && param.Value) {
-        secrets[param.Name] = param.Value;
-      }
-    });
-    console.log("Secrets loaded:", secrets);
-  })
-  .catch((error) => {
-    console.error("Error fetching secrets:", error);
-  });
-
-// Axios instance
-let instance: AxiosInstance;
-
-const initializeAxios = () => {
-  // if (!secrets["veeveURL"]) {
-  //   throw new Error("veeveURL not loaded from secrets.");
-  // }
-
-  instance = axios.create({
-    baseURL: 'https://commtech-candidate-demo.veevavault.com/api/v24.3',//secrets["veeveURL"],
-    timeout: 1000,
-  });
-};
-
-// Fetch data with authentication
-export const fetchGetData = async (
+export const fetchHCPData = async (
   zip: string,
   groupSpecialty: string
-): Promise<any> => {
+): Promise<HCPResponse> => {
   try {
-    if (!instance) initializeAxios();
-
-    const data = {
-      username:'natalyasniff@commtech.com',// secrets["userName"],
-      password: 'Nis&732799',//secrets["password"],
-    };
-
-    const formBody = Object.entries(data)
-      .map(
-        ([key, value]) =>
-          `${encodeURIComponent(key)}=${encodeURIComponent(value)}`
-      )
-      .join("&");
-
-    const authResponse = await instance.post("/auth", formBody, {
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
-        "Access-Control-Allow-Origin": "*",
-          "Access-Control-Allow-Credentials":true,
+    const restOperation = get({
+      apiName: 'api71abe4d1', // must match the name of your REST API in Amplify
+      path: '/hcp',
+      options: {
+        queryParams: {
+          zip,
+          groupSpecialty,
+        },
       },
     });
 
-    if (authResponse.data.responseStatus === "SUCCESS") {
-      return fetchData(zip, groupSpecialty, authResponse.data.sessionId);
-    } else {
-      throw new Error("Authentication failed");
-    }
+    const { body } = await restOperation.response;
+    const response = await body.json();
+    return response as unknown as HCPResponse;
   } catch (error) {
-    console.error("Error fetching data:", error);
+    console.error('Error calling HCP Lambda:', error);
     throw error;
   }
 };
 
-// Fetch protected data
-const fetchData = async (
-  zip: string,
-  groupSpecialty: string,
-  sessionId: string
-): Promise<any> => {
-  try {
-    const data = {
-      zip,
-      groupSpecialty,
-    };
-
-    const response = await instance.post(
-      "/custom/hcp_request",
-      JSON.stringify(data),
-      {
-        headers: {
-          "Content-Type": "application/json",
-          "Access-Control-Allow-Origin":"*",
-          "Access-Control-Allow-Credentials":true,
-          "Authorization": sessionId,
-        },
-      }
-    );
-
-    const {
-      Id,
-      name,
-      title,
-      email,
-      phone,
-      firstName,
-      lastName,
-      company,
-      accountId,
-    } = response.data;
-
-    return {
-      id: Id,
-      name,
-      title,
-      email,
-      phone,
-      firstName,
-      lastName,
-      company,
-      accountId,
-    };
-  } catch (error) {
-    console.error("Error fetching protected data:", error);
-    throw error;
-  }
-};

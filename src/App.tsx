@@ -2,7 +2,7 @@ import { useState, type SetStateAction } from 'react';
 import reactLogo from './assets/WDHCP.jpg'
 import './App.css'
 import type { MSLResponce } from '../amplify/functions/MSLResponce'
-import { fetchGetData } from '../amplify/data/getPost.js'
+import { fetchHCPData } from '../amplify/data/getPost.js'
 
 function App() {
   const [name, setName] = useState('');
@@ -45,7 +45,7 @@ function App() {
     setResponseData(null);
 
     try {
-      const response = await fetchGetData( zip, specialty)
+      const response = await fetchHCPData( zip, specialty)
       setResponseData(response);
        // Adjust based on actual response structure
     } catch (error) {
