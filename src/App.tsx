@@ -35,7 +35,20 @@ function App() {
   const handleSpecialtyChange = (event: { target: { value: SetStateAction<string>; }; }) => {
     setSpecialty(event.target.value);
   };
+  
+  const options: string[] = ['family_medicine__v', 'general_practice__v', 'recearch__v', 'internal_medicine__v', 'pediatrics__v', 'psychiatry__v', 'surgery__v', 'urology__v', 'oncology__v', 'dermatology__v', 'neurology__v', 'radiology__v', 'ophthalmology__v', 'orthopedics__v', 'obstetrics_and_gynecology__v', 'cardiology__v', 'gastroenterology__v', 'pulmonology__v '];
 
+    // Array of objects
+    interface DropdownItem {
+      value: string;
+      text: string;
+    }
+    const complexOptions: DropdownItem[] = [
+      { value: 'apple', text: 'Apple' },
+      { value: 'banana', text: 'Banana' },
+      { value: 'orange', text: 'Orange' },
+    ];
+    
   const [responseData, setResponseData] = useState<MSLResponce | null>(null);
   const [loading, setLoading] = useState(false);
 
