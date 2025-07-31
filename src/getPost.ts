@@ -1,5 +1,9 @@
 // fetchHCPData.ts
 import { post } from '@aws-amplify/api';
+import awsconfig from './aws-exports';
+import { Amplify } from 'aws-amplify';
+
+Amplify.configure(awsconfig);
 
 interface HCPResponse {
   id: string;

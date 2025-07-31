@@ -15,7 +15,7 @@
       "function": {
         "wondershcp73ce8806": {
           "deploymentBucketName": "amplify-wondershcp-dev-38421-deployment",
-          "s3Key": "amplify-builds/wondershcp73ce8806-7847766f335a4b556561-build.zip"
+          "s3Key": "amplify-builds/wondershcp73ce8806-427437767a71392b3776-build.zip"
         }
       },
       "api": {

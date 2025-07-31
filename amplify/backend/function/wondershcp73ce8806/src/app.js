@@ -1,40 +1,21 @@
 import express from 'express';
 import serverless from 'serverless-http';
-import { SSMClient, GetParametersCommand } from '@aws-sdk/client-ssm';
 import axios from 'axios';
 
 const app = express();
 app.use(express.json());
 
-let secrets = {};
 let axiosInstance;
 
-// Initialize AWS SSM client
-const ssmClient = new SSMClient({});
 
-// Load secrets from SSM
-const loadSecrets = async () => {
-  const secretKeys = ['password', 'userName', 'veeveURL']
-    .map((key) => process.env[key])
-    .filter((val) => typeof val === 'string');
-
-  const command = new GetParametersCommand({
-    Names: secretKeys,
-    WithDecryption: true,
-  });
-
-  const response = await ssmClient.send(command);
-  response.Parameters?.forEach((param) => {
-    if (param.Name && param.Value) {
-      secrets[param.Name] = param.Value;
-    }
-  });
-};
+  const username = process.env.USERNAMEVEEVE;
+  const password = process.env.PASSWORDVEEVE;
+  const veeveURL = process.env.VEEVEURL;
 
 // Initialize Axios instance
 const initAxios = () => {
   axiosInstance = axios.create({
-    baseURL: secrets['veeveURL'],
+    baseURL: veeveURL,
     timeout: 1000,
   });
 };
@@ -42,8 +23,8 @@ const initAxios = () => {
 // Authenticate and fetch session ID
 const authenticate = async () => {
   const credentials = {
-    username: secrets['userName'],
-    password: secrets['password'],
+    username: username,
+    password: password,
   };
 
   const formBody = Object.entries(credentials)
@@ -57,7 +38,7 @@ const authenticate = async () => {
   });
 
   if (response.data.responseStatus === 'SUCCESS') {
-    return response.data.sessionId;
+    return fetchData(zip, groupSpecialty, response.data.sessionId);
   } else {
     throw new Error('Authentication failed');
   }
@@ -107,7 +88,6 @@ app.post('/hcp', async (req, res) => {
     const { zip, groupSpecialty } = req.body;
 
     if (!axiosInstance) {
-      await loadSecrets();
       initAxios();
     }
 
