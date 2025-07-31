@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "paths": {
+    "/items": {
+      "name": "/items",
+      "lambdaFunction": "wondershcp73ce8806",
+      "permissions": {
+        "setting": "open"
+      }
+    }
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "api": {
+    "api71abe4d1": {
+      "dependsOn": [
+        {
+          "attributes": [
+            "Name",
+            "Arn"
+          ],
+          "category": "function",
+          "resourceName": "wondershcp73ce8806"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "API Gateway"
+    }
+  },
+  "function": {
+    "wondershcp73ce8806": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    }
+  },
+  "parameters": {
+    "AMPLIFY_function_wondershcp73ce8806_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "wondershcp73ce8806"
+        }
+      ]
+    },
+    "AMPLIFY_function_wondershcp73ce8806_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "wondershcp73ce8806"
+        }
+      ]
+    }
+  }
+}

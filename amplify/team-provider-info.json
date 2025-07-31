@@ -1,0 +1,26 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-wondershcp-dev-38421-authRole",
+      "UnauthRoleArn": "arn:aws:iam::711615380328:role/amplify-wondershcp-dev-38421-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::711615380328:role/amplify-wondershcp-dev-38421-authRole",
+      "Region": "us-east-2",
+      "DeploymentBucketName": "amplify-wondershcp-dev-38421-deployment",
+      "UnauthRoleName": "amplify-wondershcp-dev-38421-unauthRole",
+      "StackName": "amplify-wondershcp-dev-38421",
+      "StackId": "arn:aws:cloudformation:us-east-2:711615380328:stack/amplify-wondershcp-dev-38421/0708fc00-6e25-11f0-9451-06816d2c83fb",
+      "AmplifyAppId": "dz1gsvq6akbkh"
+    },
+    "categories": {
+      "function": {
+        "wondershcp73ce8806": {
+          "deploymentBucketName": "amplify-wondershcp-dev-38421-deployment",
+          "s3Key": "amplify-builds/wondershcp73ce8806-7847766f335a4b556561-build.zip"
+        }
+      },
+      "api": {
+        "api71abe4d1": {}
+      }
+    }
+  }
+}
