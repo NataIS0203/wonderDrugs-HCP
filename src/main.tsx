@@ -4,7 +4,7 @@ import { Amplify } from 'aws-amplify';
 import App from './App.tsx';
 import './index.css';
 import '@aws-amplify/ui-react/styles.css';
-import awsconfig from './amplifyconfiguration.json'; // or your custom config
+import awsconfig from './aws-exports.ts'; // or your custom config
 
 Amplify.configure(awsconfig);
 
