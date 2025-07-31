@@ -27,5 +27,5 @@
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true
   },
-  "include": ["src","./**/*.ts", "./**/*.js", "amplify/functions/resource.ts", "amplify/functions/handler.ts", "amplify/functions/MSLResponce.ts"]
+  "include": ["src","./**/*.ts", "./**/*.js", "amplify/functions/resource.ts", "amplify/functions/handler.ts", "src/MSLResponce.ts"]
 }
