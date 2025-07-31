@@ -4,9 +4,24 @@ import { Amplify } from 'aws-amplify';
 import App from './App.tsx';
 import './index.css';
 import '@aws-amplify/ui-react/styles.css';
-import awsconfig from '../amplify_outputs.json'; // or your custom config
+import amplifyconfig from './amplifyconfiguration.json';
 
-Amplify.configure(awsconfig);
+Amplify.configure(amplifyconfig);
+
+const existingConfig = Amplify.getConfig();
+Amplify.configure({
+  ...existingConfig,
+  API: {
+    ...existingConfig.API,
+    REST: {
+      ...existingConfig.API?.REST,
+      'stripeAPI': {
+        endpoint: 'https://vml1nmph48.execute-api.us-east-2.amazonaws.com/dev',
+        region: 'us-east-2'
+      }
+    }
+  },
+});
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>

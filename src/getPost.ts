@@ -1,9 +1,5 @@
 // fetchHCPData.ts
 import { post } from '@aws-amplify/api';
-import awsconfig from './amplifyconfiguration.json';
-import { Amplify } from 'aws-amplify';
-
-Amplify.configure(awsconfig);
 
 interface HCPResponse {
   id: string;
@@ -26,7 +22,7 @@ export const fetchHCPData = async (
       apiName: 'api71abe4d1', // must match the name of your REST API in Amplify
       path: '/hcp',
       options: {
-        queryParams: {
+        body: {
           zip,
           groupSpecialty,
         },
