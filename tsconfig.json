@@ -6,6 +6,8 @@
   ],
    "compilerOptions": {
         "allowJs": true,
+        "resolveJsonModule": true,
+        "esModuleInterop": true,
         // ... other options
       }
 }
