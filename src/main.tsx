@@ -15,7 +15,7 @@ Amplify.configure({
     ...existingConfig.API,
     REST: {
       ...existingConfig.API?.REST,
-      'stripeAPI': {
+      'api71abe4d1': {
         endpoint: 'https://vml1nmph48.execute-api.us-east-2.amazonaws.com/dev',
         region: 'us-east-2'
       }

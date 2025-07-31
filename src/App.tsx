@@ -123,6 +123,7 @@ function App() {
             />
           </p>
           <p></p>
+          <p></p>
           <div>
             <label htmlFor="dropdown">Choose an option:</label>
             <select id="dropdown" value={specialty} onChange={handleChange}>
@@ -131,8 +132,6 @@ function App() {
               <option value={complexOptions[2].value}>{complexOptions[2].text}</option>
               <option value={complexOptions[3].value}>{complexOptions[3].text}</option>
             </select>
-
-            <p>You selected: {specialty}</p>
           </div>
         </div>
         <div>
