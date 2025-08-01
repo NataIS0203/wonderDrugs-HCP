@@ -36,7 +36,7 @@ function App() {
     text: string;
   };
 
-  const [specialty, setSelectedValue] = useState<string>();
+  const [specialty, setSelectedValue] = useState<string | null>(null);
 
   const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedValue(event.target.value);
