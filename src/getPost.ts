@@ -13,6 +13,20 @@ interface HCPResponse {
   accountId: string;
 }
 
+interface HCPbody {
+  data: HCPResponse,
+  responseStatus: string;
+}
+
+interface HCPdata {
+  body: HCPbody,  
+  statusCode: number;
+}
+interface HCPresult {
+  data: HCPdata,  
+  statusCode: number;
+}
+
 export const fetchHCPData = async (
   zip: string,
   groupSpecialty: string
@@ -32,8 +46,12 @@ export const fetchHCPData = async (
     });
 
     const { body } = await restOperation.response;
+    
+    console.log('got body back:', body.json);
     const response = await body.json();
-    return response as unknown as HCPResponse;
+    const result =  response as unknown as HCPresult;    
+    console.log('got body data :', result);
+    return result.data.body.data;
   } catch (error) {
     console.error('Error calling HCP Lambda:', error);
     throw error;
