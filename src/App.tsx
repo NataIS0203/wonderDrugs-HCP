@@ -2,7 +2,7 @@ import { useState, type SetStateAction } from 'react';
 import reactLogo from './assets/WDHCP.jpg'
 import './App.css'
 import type { MSLResponce } from './MSLResponce.js'
-import { fetchHCPData } from './getPost.js'
+import { fetchHCPData, fetchHCPRequestData } from './getPost.js'
 
 function App() {
   const [name, setName] = useState('');
@@ -10,6 +10,7 @@ function App() {
   const [phone, setPhone] = useState('');
   const [NPINumber, setNPINumber] = useState('');
   const [zip, setZip] = useState('');
+  const [duration, setDuration] = useState('');
 
   const handleNameChange = (event: { target: { value: SetStateAction<string>; }; }) => {
     setName(event.target.value);
@@ -31,6 +32,10 @@ function App() {
     setZip(event.target.value);
   };
 
+  const handleDuration = (event: { target: { value: SetStateAction<string>; }; }) => {
+    setDuration(event.target.value);
+  };
+
   type DropdownItem = {
     value: string;
     text: string;
@@ -50,9 +55,12 @@ function App() {
   ];
 
   const [responseData, setResponseData] = useState<MSLResponce | null>(null);
+  const [responseRequestData, setResponseRequestData] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+  const [loadingRequest, setLoadingRequest] = useState(false);
 
-  const handleSubmit = async (e: React.FormEvent) => {
+
+  const handleSearchSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
     setResponseData(null);
@@ -69,14 +77,40 @@ function App() {
     }
   }
 
+  const handleRequestSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoadingRequest(true);
+    setResponseRequestData(null);
+
+    try {
+      if( !responseData && !duration) {
+        const request = responseData as unknown as MSLResponce;
+      const response = await fetchHCPRequestData( 
+        request.id,
+        request.email,
+        request.phone,
+        request.firstName,
+        request.lastName,
+        request.accountId,
+        parseInt(duration, 10))
+      setResponseRequestData(response);
+    }
+      // Adjust based on actual response structure
+    } catch (error) {
+      console.error('Error sending data:', error);
+      setResponseRequestData(null);
+    } finally {
+      setLoadingRequest(false);
+    }
+  }
   return (
     <>
       <div>
         <img src={reactLogo} className="logo" alt="HCP logo" />
       </div>
       <h3>Search for MSL</h3>
-      <div>
-        <div>
+      <div id='parent_div_1'>
+        <div className ='child_div_1'>
           <p>
             <label htmlFor="nameInput" className='param'>HCP Name: </label>
             <input className='field'
@@ -135,25 +169,45 @@ function App() {
           </div>
         </div>
         <div>
-          <h2>Send Input to API</h2>
-          <form onSubmit={handleSubmit}>
+          <h2>Send Request to search MSL</h2>
+          <form onSubmit={handleSearchSubmit}>
             <button type="submit" disabled={loading}>
               {loading ? 'Sending...' : 'Send'}
             </button>
           </form>
+          
+      <div id='parent_div_1'>
+        <div className ='child_div_1'></div>
           {responseData && (
             <div>
               <h3>Response:</h3>
-              <ul><li key={responseData.id}>{responseData.id}</li>
-                <li key={responseData.name}>{responseData.name}</li>
-                <li key={responseData.title}>{responseData.title}</li>
-                <li key={responseData.email}>{responseData.email}</li>
-                <li key={responseData.phone}>{responseData.phone}</li>
-                <li key={responseData.company}>{responseData.company}</li></ul>
+              <p>ID: {responseData.id}</p>
+                <p >Name: {responseData.name}</p>
+                <p >Title: {responseData.title}</p>
+                <p >Email: {responseData.email}</p>
+                <p >Phone: {responseData.phone}</p>
+                <p >Company: {responseData.company}</p>                
+          <p>
+            <label htmlFor="durationInput" className='param'>Duration of the meeting: </label>
+            <input className='field'
+              type="number"
+              id="durationInput"
+              value={duration}
+              onChange={handleDuration}
+            />
+          </p>          
+          <h2>Send Request to schedule meeting with MSL</h2>
+          <form onSubmit={handleRequestSubmit}>
+            <button type="submit" disabled={loadingRequest}>
+              {loadingRequest ? 'Sending...' : 'Send'}
+               <p >Result of request: {responseRequestData}</p>
+            </button>
+          </form>
             </div>
           )}
         </div>
       </div>
+        </div>
     </>
   )
 }

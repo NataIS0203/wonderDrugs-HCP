@@ -49,3 +49,13 @@
   width: 480px;
   text-align: left;
 }
+#parent_div_1, #parent_div_2{
+    width:45%;
+    height:200px;
+    margin-right:10px;
+    float:left;
+}
+.child_div_1{
+    float:left;
+    margin-right:5px;
+}
