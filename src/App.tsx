@@ -36,7 +36,7 @@ function App() {
     text: string;
   };
 
-  const [specialty, setSelectedValue] = useState<string | null>(null);
+  const [specialty, setSelectedValue] = useState<string>('option1family_medicine__v');
 
   const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedValue(event.target.value);
