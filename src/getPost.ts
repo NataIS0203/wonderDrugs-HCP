@@ -23,8 +23,10 @@ export const fetchHCPData = async (
       path: '/hcp',
       options: {
         body: {
-          zip,
-          groupSpecialty,
+           httpMethod: "POST",
+           path: "/hcp",
+           headers: { "Content-Type": "application/json"},
+           body: "{\"zip\": \"" + zip + "\", \"groupSpecialty\": \"" + groupSpecialty + "\"}",
         },
       },
     });
