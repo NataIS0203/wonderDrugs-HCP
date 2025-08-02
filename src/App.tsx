@@ -194,7 +194,7 @@ function App() {
                 <p >Company: {responseData.company}</p>
                  <div>
             <label htmlFor="dropdown">Choose contact type option:</label>
-            <select id="dropdown" value={contactType} onChange={handleContactType}>
+            <select id="dropdownContactType" value={contactType} onChange={handleContactType}>
               <option value={contactTypeOptions[0].value}>{contactTypeOptions[0].text}</option>
               <option value={contactTypeOptions[1].value}>{contactTypeOptions[1].text}</option>
             </select>     
