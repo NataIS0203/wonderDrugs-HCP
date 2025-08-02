@@ -58,8 +58,9 @@ export const fetchHCPRequestData = async (
   duration: number
 ): Promise<string | null> => {
   try {
+    const requestId = Math.floor(Math.random() * 1000000).toString(); // Example request ID, adjust as needed
     const restOperation = post({
-      apiName: 'api71abe4d1', // must match the name of your REST API in Amplify
+      apiName: 'api71abe4d1', 
       path: '/hcpmeetingrequest',
       options: {
       body: {
@@ -71,9 +72,9 @@ export const fetchHCPRequestData = async (
           NPINumber: NPINumber, 
           duration: duration,
           accountId: accountId,
-          startDate: new Date().toISOString(), // Adjust as needed
+          startDate: new Date().toISOString(),
           meetingType: contactType,
-          requestId: Math.floor(Math.random() * 1000000).toString(), // Example request ID, adjust as needed
+          requestId: requestId, 
         },
       },
     });
@@ -87,7 +88,7 @@ export const fetchHCPRequestData = async (
       const parsed = JSON.parse(rawText);
 
       console.log('Parsed JSON:', parsed.data);
-      return parsed.responseStatus;
+      return parsed.responseStatus + ', RequestId: ' + requestId;
 
     } catch (err) {
       console.error('Failed to parse JSON:', err);
