@@ -55,6 +55,7 @@ export const fetchHCPRequestData = async (
   firstName: string,
   lastName: string,
   accountId: string,
+  contactType: string,
   duration: number
 ): Promise<string | null> => {
   try {
@@ -72,7 +73,7 @@ export const fetchHCPRequestData = async (
           duration: duration,
           accountId: accountId,
           startDate: new Date().toISOString(), // Adjust as needed
-          meetingType: 'phone',
+          meetingType: contactType,
           rewuestId: Math.floor(Math.random() * 1000000).toString(), // Example request ID, adjust as needed
         },
       },

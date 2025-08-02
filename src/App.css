@@ -41,21 +41,22 @@
   color: #888;
 }
 .param {
-  width: 480px;
   margin: 3em;
   text-align: left;
 }
 .field {
-  width: 480px;
   text-align: left;
 }
-#parent_div_1, #parent_div_2{
-    width:45%;
-    height:200px;
-    margin-right:10px;
-    float:left;
+.container {
+  display: flex; /* Makes the container a flex container */
+  justify-content: space-around; /* Distributes space between items (optional) */
+  align-items: flex-start; /* Aligns items to the start of the cross-axis (optional) */
+  gap: 20px; /* Adds space between the flex items (optional) */
 }
-.child_div_1{
-    float:left;
-    margin-right:5px;
+
+.left-div, .right-div {
+  /* Optional: Add styling for your individual divs */
+  padding: 20px;
+  border: 1px solid #ccc;
+  background-color: #f0f0f0;
 }

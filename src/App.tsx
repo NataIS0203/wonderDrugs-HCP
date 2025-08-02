@@ -11,6 +11,8 @@ function App() {
   const [NPINumber, setNPINumber] = useState('');
   const [zip, setZip] = useState('');
   const [duration, setDuration] = useState('');
+  const [contactType, setContactType] = useState<string>('phone');
+  const [specialty, setSelectedValue] = useState<string>('family_medicine__v');
 
   const handleNameChange = (event: { target: { value: SetStateAction<string>; }; }) => {
     setName(event.target.value);
@@ -40,12 +42,16 @@ function App() {
     value: string;
     text: string;
   };
-
-  const [specialty, setSelectedValue] = useState<string>('family_medicine__v');
+   const handleContactType = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    setContactType(event.target.value);
+  }; 
+  const contactTypeOptions: DropdownItem[] = [
+    { value: 'phone', text: 'Phone' },
+    { value: 'email', text: 'Email' },
+  ];
 
   const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedValue(event.target.value);
-    console.log('Selected:', event.target.value);
   };
   const complexOptions: DropdownItem[] = [
     { value: 'family_medicine__v', text: 'Family Medicine' },
@@ -92,6 +98,7 @@ function App() {
         request.firstName,
         request.lastName,
         request.accountId,
+        contactType,
         parseInt(duration, 10))
       setResponseRequestData(response);
     }
@@ -109,8 +116,8 @@ function App() {
         <img src={reactLogo} className="logo" alt="HCP logo" />
       </div>
       <h3>Search for MSL</h3>
-      <div id='parent_div_1'>
-        <div className ='child_div_1'>
+      <div className="container">
+    <div className="left-div">
           <p>
             <label htmlFor="nameInput" className='param'>HCP Name: </label>
             <input className='field'
@@ -157,9 +164,8 @@ function App() {
             />
           </p>
           <p></p>
-          <p></p>
           <div>
-            <label htmlFor="dropdown">Choose an option:</label>
+            <label htmlFor="dropdown">Choose an specialty:</label>
             <select id="dropdown" value={specialty} onChange={handleChange}>
               <option value={complexOptions[0].value}>{complexOptions[0].text}</option>
               <option value={complexOptions[1].value}>{complexOptions[1].text}</option>
@@ -167,7 +173,6 @@ function App() {
               <option value={complexOptions[3].value}>{complexOptions[3].text}</option>
             </select>
           </div>
-        </div>
         <div>
           <h2>Send Request to search MSL</h2>
           <form onSubmit={handleSearchSubmit}>
@@ -175,9 +180,9 @@ function App() {
               {loading ? 'Sending...' : 'Send'}
             </button>
           </form>
-          
-      <div id='parent_div_1'>
-        <div className ='child_div_1'></div>
+      </div>  
+        </div>    
+    <div className="right-div">
           {responseData && (
             <div>
               <h3>Response:</h3>
@@ -186,7 +191,14 @@ function App() {
                 <p >Title: {responseData.title}</p>
                 <p >Email: {responseData.email}</p>
                 <p >Phone: {responseData.phone}</p>
-                <p >Company: {responseData.company}</p>                
+                <p >Company: {responseData.company}</p>
+                 <div>
+            <label htmlFor="dropdown">Choose contact type option:</label>
+            <select id="dropdown" value={contactType} onChange={handleContactType}>
+              <option value={contactTypeOptions[0].value}>{contactTypeOptions[0].text}</option>
+              <option value={contactTypeOptions[1].value}>{contactTypeOptions[1].text}</option>
+            </select>     
+            </div>           
           <p>
             <label htmlFor="durationInput" className='param'>Duration of the meeting: </label>
             <input className='field'
@@ -199,15 +211,13 @@ function App() {
           <h2>Send Request to schedule meeting with MSL</h2>
           <form onSubmit={handleRequestSubmit}>
             <button type="submit" disabled={loadingRequest}>
-              {loadingRequest ? 'Sending...' : 'Send'}
-               <p >Result of request: {responseRequestData}</p>
+              {loadingRequest ? 'Sending...' : 'Request Submitted'}
             </button>
           </form>
             </div>
           )}
         </div>
       </div>
-        </div>
     </>
   )
 }
