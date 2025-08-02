@@ -12,7 +12,6 @@ interface HCPResponse {
   company: string;
   accountId: string;
 }
-
 export const fetchHCPData = async (
   zip: string,
   groupSpecialty: string
@@ -52,9 +51,9 @@ export const fetchHCPRequestData = async (
   assigneeId: string,
   email: string,
   phone: string,
-  firstName: string,
-  lastName: string,
+  name: string,
   accountId: string,
+  NPINumber: string,
   contactType: string,
   duration: number
 ): Promise<string | null> => {
@@ -66,15 +65,15 @@ export const fetchHCPRequestData = async (
       body: {
           assigneeId: assigneeId,
           meetingSubject: "HCP - MSL conversation",
-          inviteeName: firstName + ' ' + lastName,
+          inviteeName: name,
           email: email,
-          pnone: phone,
-          NPINumber: 'NPINumber: ' + accountId, 
+          phone: phone,
+          NPINumber: NPINumber, 
           duration: duration,
           accountId: accountId,
           startDate: new Date().toISOString(), // Adjust as needed
           meetingType: contactType,
-          rewuestId: Math.floor(Math.random() * 1000000).toString(), // Example request ID, adjust as needed
+          requestId: Math.floor(Math.random() * 1000000).toString(), // Example request ID, adjust as needed
         },
       },
     });
@@ -88,7 +87,7 @@ export const fetchHCPRequestData = async (
       const parsed = JSON.parse(rawText);
 
       console.log('Parsed JSON:', parsed.data);
-      return parsed.data;
+      return parsed.responseStatus;
 
     } catch (err) {
       console.error('Failed to parse JSON:', err);

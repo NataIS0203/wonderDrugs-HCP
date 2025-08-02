@@ -42,9 +42,9 @@ function App() {
     value: string;
     text: string;
   };
-   const handleContactType = (event: React.ChangeEvent<HTMLSelectElement>) => {
+  const handleContactType = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setContactType(event.target.value);
-  }; 
+  };
   const contactTypeOptions: DropdownItem[] = [
     { value: 'phone', text: 'Phone' },
     { value: 'email', text: 'Email' },
@@ -72,6 +72,7 @@ function App() {
     setResponseData(null);
 
     try {
+      setLoadingRequest(false);
       const response = await fetchHCPData(zip, specialty)
       setResponseData(response);
       // Adjust based on actual response structure
@@ -89,19 +90,19 @@ function App() {
     setResponseRequestData(null);
 
     try {
-      if( !responseData && !duration) {
+      if (responseData && duration) {
         const request = responseData as unknown as MSLResponce;
-      const response = await fetchHCPRequestData( 
-        request.id,
-        request.email,
-        request.phone,
-        request.firstName,
-        request.lastName,
-        request.accountId,
-        contactType,
-        parseInt(duration, 10))
-      setResponseRequestData(response);
-    }
+        const response = await fetchHCPRequestData(
+          request.id,
+          email,
+          phone,
+          name,
+          request.accountId,
+          NPINumber,
+          contactType,
+          parseInt(duration, 10))
+        setResponseRequestData(response);
+      }
       // Adjust based on actual response structure
     } catch (error) {
       console.error('Error sending data:', error);
@@ -115,9 +116,9 @@ function App() {
       <div>
         <img src={reactLogo} className="logo" alt="HCP logo" />
       </div>
-      <h3>Search for MSL</h3>
       <div className="container">
-    <div className="left-div">
+        <div className="left-div">
+          <h3>Search for MSL</h3>
           <p>
             <label htmlFor="nameInput" className='param'>HCP Name: </label>
             <input className='field'
@@ -155,7 +156,7 @@ function App() {
             />
           </p>
           <p>
-            <label htmlFor="nameInput" className='param'>HCP zip code: </label>
+            <label htmlFor="nameInput" className='param'>HCP zipcode: </label>
             <input className='field'
               type="text"
               id="zipInput"
@@ -165,58 +166,72 @@ function App() {
           </p>
           <p></p>
           <div>
-            <label htmlFor="dropdown">Choose an specialty:</label>
-            <select id="dropdown" value={specialty} onChange={handleChange}>
+            <label htmlFor="dropdown">Group Specialty : </label>
+            <select className = "dropdown" id="dropdown" value={specialty} onChange={handleChange}>
               <option value={complexOptions[0].value}>{complexOptions[0].text}</option>
               <option value={complexOptions[1].value}>{complexOptions[1].text}</option>
               <option value={complexOptions[2].value}>{complexOptions[2].text}</option>
               <option value={complexOptions[3].value}>{complexOptions[3].text}</option>
             </select>
           </div>
-        <div>
-          <h2>Send Request to search MSL</h2>
-          <form onSubmit={handleSearchSubmit}>
-            <button type="submit" disabled={loading}>
-              {loading ? 'Sending...' : 'Send'}
-            </button>
-          </form>
-      </div>  
-        </div>    
-    <div className="right-div">
-          {responseData && (
-            <div>
-              <h3>Response:</h3>
-              <p>ID: {responseData.id}</p>
-                <p >Name: {responseData.name}</p>
-                <p >Title: {responseData.title}</p>
-                <p >Email: {responseData.email}</p>
-                <p >Phone: {responseData.phone}</p>
-                <p >Company: {responseData.company}</p>
-                 <div>
-            <label htmlFor="dropdown">Choose contact type option:</label>
-            <select id="dropdownContactType" value={contactType} onChange={handleContactType}>
-              <option value={contactTypeOptions[0].value}>{contactTypeOptions[0].text}</option>
-              <option value={contactTypeOptions[1].value}>{contactTypeOptions[1].text}</option>
-            </select>     
-            </div>           
-          <p>
-            <label htmlFor="durationInput" className='param'>Duration of the meeting: </label>
-            <input className='field'
-              type="number"
-              id="durationInput"
-              value={duration}
-              onChange={handleDuration}
-            />
-          </p>          
-          <h2>Send Request to schedule meeting with MSL</h2>
-          <form onSubmit={handleRequestSubmit}>
-            <button type="submit" disabled={loadingRequest}>
-              {loadingRequest ? 'Sending...' : 'Request Submitted'}
-            </button>
-          </form>
+          <p></p>
+          <p></p>          
+          <p></p>
+          <p></p>
+          <div>
+            <h2>Send Request to search MSL</h2>
+            <form onSubmit={handleSearchSubmit}>
+              <button type="submit" disabled={loading}>
+                {loading ? 'Sending...' : 'Send'}
+              </button>
+            </form>
+          </div>
+        </div>{!responseData && (
+        <div className="right-div">
+            <h3>Response: Waiting for search results</h3>
             </div>
           )}
-        </div>
+          {responseData && !responseData.id && (
+        <div className="right-div">
+            <h3>Response: No MSL found</h3>
+            </div>
+          )}
+          {responseData && responseData.id && (           
+        <div className="right-div">
+              <h3>Response:</h3>
+              <p>ID: {responseData.id}</p>
+              <p >MSL Name: {responseData.name}</p>
+              <p >Title: {responseData.title}</p>
+              <p >Email: {responseData.email}</p>
+              <p >Phone: {responseData.phone}</p>
+              <p >Company: {responseData.company}</p>
+              <p >Company Id: {responseData.accountId}</p>
+              <div>
+                <label htmlFor="dropdown">Contact type option : </label>
+                <select className = "dropdown"  id="dropdownContactType" value={contactType} onChange={handleContactType}>
+                  <option value={contactTypeOptions[0].value}>{contactTypeOptions[0].text}</option>
+                  <option value={contactTypeOptions[1].value}>{contactTypeOptions[1].text}</option>
+                </select>
+              </div>
+              <p>
+                <label htmlFor="durationInput" className='param'>Duration of the meeting: </label>
+                <input className='field'
+                  type="number"
+                  id="durationInput"
+                  value={duration}
+                  onChange={handleDuration}
+                />
+              </p>
+              <h2>Send Meeting Request</h2>
+              <form onSubmit={handleRequestSubmit}>
+                <button type="submit" disabled={loadingRequest}>
+                  {loadingRequest ? 'Sending...'
+                    : responseRequestData ? 'Request Submitted  : ' + responseRequestData
+                      : 'Send Request'}
+                </button>
+              </form>
+            </div>
+          )} 
       </div>
     </>
   )
