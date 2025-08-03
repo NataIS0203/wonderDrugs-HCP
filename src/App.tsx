@@ -186,7 +186,7 @@ function App() {
             <h2>Send Request to search MSL</h2>
             <form onSubmit={handleSearchSubmit}>
               <button type="submit" disabled={loading}>
-                {loading ? 'Sending...' : 'Send'}
+                {loading ? 'Searching...' : 'Seach'}
               </button>
             </form>
           </div>
