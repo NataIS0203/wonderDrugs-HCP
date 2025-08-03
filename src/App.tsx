@@ -33,6 +33,7 @@ function App() {
   const handleZipChange = (event: { target: { value: SetStateAction<string>; }; }) => {
     setZip(event.target.value);
     setResponseData(null);
+    setResponseRequestData(null);
   };
 
   const handleDuration = (event: { target: { value: SetStateAction<string>; }; }) => {
@@ -54,6 +55,7 @@ function App() {
   const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedValue(event.target.value);
     setResponseData(null);
+    setResponseRequestData(null);
   };
   const complexOptions: DropdownItem[] = [
     { value: 'family_medicine__v', text: 'Family Medicine' },
