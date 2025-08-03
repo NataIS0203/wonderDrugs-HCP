@@ -48,8 +48,9 @@ function App() {
     setContactType(event.target.value);
   };
   const contactTypeOptions: DropdownItem[] = [
+    { value: 'face_to_face__v', text: 'In-person' },
     { value: 'phone', text: 'Phone' },
-    { value: 'in-person', text: 'In-person' },
+    { value: 'video_v', text: 'Video' },
   ];
 
   const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
@@ -215,6 +216,7 @@ function App() {
                 <select className = "dropdown"  id="dropdownContactType" value={contactType} onChange={handleContactType}>
                   <option value={contactTypeOptions[0].value}>{contactTypeOptions[0].text}</option>
                   <option value={contactTypeOptions[1].value}>{contactTypeOptions[1].text}</option>
+                  <option value={contactTypeOptions[2].value}>{contactTypeOptions[2].text}</option>
                 </select>
               </div>
               <p>
