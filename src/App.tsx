@@ -49,7 +49,7 @@ function App() {
   };
   const contactTypeOptions: DropdownItem[] = [
     { value: 'phone', text: 'Phone' },
-    { value: 'email', text: 'Email' },
+    { value: 'in-person', text: 'In-person' },
   ];
 
   const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
