@@ -3,6 +3,7 @@ import reactLogo from './assets/WDHCP.jpg'
 import './App.css'
 import type { MSLResponce } from './MSLResponce.js'
 import { fetchHCPData, fetchHCPRequestData } from './getPost.js'
+import { download} from './download.js'
 
 function App() {
   const [name, setName] = useState('Natalya Sniff');
@@ -69,6 +70,7 @@ function App() {
   const [responseRequestData, setResponseRequestData] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const [loadingRequest, setLoadingRequest] = useState(false);
+  const [downloadRequest, setDownloadRequest] = useState(false);
 
 
   const handleSearchSubmit = async (e: React.FormEvent) => {
@@ -114,6 +116,30 @@ function App() {
       setResponseRequestData(null);
     } finally {
       setLoadingRequest(false);
+    }
+  }
+
+   const handleDownloadRequest = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setDownloadRequest(true);
+    try {
+      if (responseData) {
+        const request = responseData as unknown as MSLResponce;
+        await download(
+          "MSL_Contact_Info.txt",
+          "MSL Name: " + request.name + "\n" +
+          "Title: " + request.title + "\n" +
+          "Email: " + request.email + "\n" +
+          "Phone: " + request.phone + "\n" +
+          "Company: " + request.company + "\n" +
+          "Company Id: " + request.accountId,
+           "text/plain");
+      }
+      // Adjust based on actual response structure
+    } catch (error) {
+      console.error('Error downloading MSL contact information:', error);
+    } finally {
+      setDownloadRequest(false);
     }
   }
   return (
@@ -233,6 +259,12 @@ function App() {
                     : responseRequestData ? 'Request Submitted  : ' + responseRequestData
                       : 'Submit Meeting Request'}
                 </button>
+              </form>
+              <p> </p>
+               <form onClick={handleDownloadRequest}>
+                <button className= 'buttons' type="submit" disabled={downloadRequest}>
+                  {downloadRequest ? 'Downloading...': 'Download MSL Contact Information'}
+                  </button>
               </form>
             </div>
           )} 
