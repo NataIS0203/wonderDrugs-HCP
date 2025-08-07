@@ -126,7 +126,7 @@ function App() {
       if (responseData) {
         const request = responseData as unknown as MSLResponce;
         await download(
-          "MSL_Contact_Info_"+request.accountId+".txt",
+          "MSL_Contact_Info_"+request.id+".txt",
           "MSL Name: " + request.name + "\n" +
           "Title: " + request.title + "\n" +
           "Email: " + request.email + "\n" +
