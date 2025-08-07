@@ -10,5 +10,5 @@
         "esModuleInterop": true,
         // ... other options
       },
-    "include": ["src","./**/*.ts", "./**/*.js", "amplify/functions/resource.ts", "amplify/functions/handler.ts", "src/MSLResponce.ts", "src/downloadFile.ts"]
+    "include": ["src/downloadFile.ts"]
 }
