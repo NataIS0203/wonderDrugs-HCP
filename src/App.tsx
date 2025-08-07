@@ -5,11 +5,11 @@ import type { MSLResponce } from './MSLResponce.js'
 import { fetchHCPData, fetchHCPRequestData } from './getPost.js'
 
 function App() {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [phone, setPhone] = useState('');
-  const [NPINumber, setNPINumber] = useState('');
-  const [zip, setZip] = useState('');
+  const [name, setName] = useState('Natalya Sniff');
+  const [email, setEmail] = useState('natais@proton.com');
+  const [phone, setPhone] = useState('5679878888');
+  const [NPINumber, setNPINumber] = useState('10034005');
+  const [zip, setZip] = useState('30701');
   const [duration, setDuration] = useState('');
   const [contactType, setContactType] = useState<string>('phone');
   const [specialty, setSelectedValue] = useState<string>('family_medicine__v');
@@ -123,7 +123,7 @@ function App() {
       </div>
       <div className="container">
         <div className="left-div">
-          <h3>Search for MSL</h3>
+          <h3>Enter the required information<br/>to locate your Medical Science Liaison</h3>
           <p>
             <label htmlFor="nameInput" className='param'>HCP Name: </label>
             <input className='field'
@@ -161,7 +161,7 @@ function App() {
             />
           </p>
           <p>
-            <label htmlFor="nameInput" className='param'>HCP zipcode: </label>
+            <label htmlFor="nameInput" className='param'>Zip Code: </label>
             <input className='field'
               type="text"
               id="zipInput"
@@ -171,7 +171,7 @@ function App() {
           </p>
           <p></p>
           <div>
-            <label htmlFor="dropdown">Group Specialty : </label>
+            <label htmlFor="dropdown">Therapeutic area : </label>
             <select className = "dropdown" id="dropdown" value={specialty} onChange={handleChange}>
               <option value={complexOptions[0].value}>{complexOptions[0].text}</option>
               <option value={complexOptions[1].value}>{complexOptions[1].text}</option>
@@ -184,10 +184,9 @@ function App() {
           <p></p>
           <p></p>
           <div>
-            <h2>Send Request to search MSL</h2>
             <form onSubmit={handleSearchSubmit}>
-              <button type="submit" disabled={loading}>
-                {loading ? 'Searching...' : 'Seach'}
+              <button className= 'buttons' type="submit" disabled={loading}>
+                {loading ? 'Searching for Medical Science Liaison' : 'Locate Medical Science Liaison'}
               </button>
             </form>
           </div>
@@ -198,12 +197,12 @@ function App() {
           )}
           {responseData && !responseData.id && (
         <div className="right-div">
-            <h3>Response: No MSL found based on parameters</h3>
+            <h3>Response: No  Medical Science Liaison<br/> found in selected area</h3>
             </div>
           )}
           {responseData && responseData.id && (           
         <div className="right-div">
-              <h3>Response:</h3>
+              <h3>Your Medical Science Liaison is:</h3>
               <p>ID: {responseData.id}</p>
               <p >MSL Name: {responseData.name}</p>
               <p >Title: {responseData.title}</p>
@@ -228,12 +227,11 @@ function App() {
                   onChange={handleDuration}
                 />
               </p>
-              <h2>Send Meeting Request</h2>
               <form onSubmit={handleRequestSubmit}>
-                <button type="submit" disabled={loadingRequest}>
+                <button className= 'buttons' type="submit" disabled={responseRequestData !== null || loadingRequest}>
                   {loadingRequest ? 'Sending...'
                     : responseRequestData ? 'Request Submitted  : ' + responseRequestData
-                      : 'Send Request'}
+                      : 'Submit Meeting Request'}
                 </button>
               </form>
             </div>

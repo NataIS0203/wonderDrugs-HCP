@@ -40,6 +40,11 @@
 .read-the-docs {
   color: #888;
 }
+.buttons {
+  color: #4d023d;
+  border: 1px solid #300202;
+  font-weight: 600;
+}
 .param {
   width: 150px;
   padding: 0.5em;
