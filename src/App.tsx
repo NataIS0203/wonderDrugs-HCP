@@ -3,7 +3,7 @@ import reactLogo from './assets/WDHCP.jpg'
 import './App.css'
 import type { MSLResponce } from './MSLResponce.js'
 import { fetchHCPData, fetchHCPRequestData } from './getPost.js'
-import { download} from './downloadFile.ts'
+import { download} from './downloadFile.js'
 
 function App() {
   const [name, setName] = useState('Natalya Sniff');
@@ -126,7 +126,7 @@ function App() {
       if (responseData) {
         const request = responseData as unknown as MSLResponce;
         await download(
-          "MSL_Contact_Info.txt",
+          "MSL_Contact_Info_"+request.accountId+".txt",
           "MSL Name: " + request.name + "\n" +
           "Title: " + request.title + "\n" +
           "Email: " + request.email + "\n" +
