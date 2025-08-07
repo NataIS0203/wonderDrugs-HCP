@@ -3,7 +3,7 @@ import reactLogo from './assets/WDHCP.jpg'
 import './App.css'
 import type { MSLResponce } from './MSLResponce.js'
 import { fetchHCPData, fetchHCPRequestData } from './getPost.js'
-import { download} from './downloadFile.ts'
+import { download} from './downloadFile.js'
 
 function App() {
   const [name, setName] = useState('Natalya Sniff');

@@ -9,6 +9,5 @@
         "resolveJsonModule": true,
         "esModuleInterop": true,
         // ... other options
-      },
-    "include": ["src/downloadFile.ts"]
+      }
 }
